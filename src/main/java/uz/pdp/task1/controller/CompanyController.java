@@ -13,6 +13,7 @@ import uz.pdp.task1.payload.ApiResponse;
 import uz.pdp.task1.payload.CompanyDto;
 import uz.pdp.task1.service.CompanyService;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +26,7 @@ public class CompanyController {
 
     //CREATE
     @PostMapping
-    public HttpEntity<ApiResponse> addCom(@RequestBody CompanyDto companyDto) {
+    public HttpEntity<ApiResponse> addCom(@Valid @RequestBody CompanyDto companyDto) {
 
         ApiResponse apiResponse = companyService.add(companyDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? HttpStatus.CREATED : HttpStatus.CONFLICT).body(apiResponse);
@@ -48,7 +49,7 @@ public class CompanyController {
 
     //update
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse> edit(@PathVariable Integer id, @RequestBody CompanyDto companyDto) {
+    public ResponseEntity<ApiResponse> edit(@PathVariable Integer id,@Valid @RequestBody CompanyDto companyDto) {
         ApiResponse apiResponse = companyService.edit(id, companyDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? HttpStatus.ACCEPTED : HttpStatus.CONFLICT).body(apiResponse);
     }
